@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script src="/socket.io/socket.io.js"></script>
+  <title>Doubletris</title>
+</head>
+<body>
+  <canvas id='ctx' width='420' height='540' style='border:1px solid black'></canvas>
+  <script>
+    const ctx = document.getElementById('ctx').getContext('2d');
+
+    // ==================== process packs ==================== 
+
+    const socket = io();
+    socket.on('pack', data => {
+      // ==================== draw grid ==================== 
+      ctx.clearRect(0, 0, 1400, 700)
+      const size = 30;
+      ctx.beginPath();
+      for (let x = 0; x <= 14 * size; x += size) {
+        ctx.moveTo(x, 0);
+        ctx.lineTo(x, 18 * size);
+      }
+
+      for (var y = 0; y <= size * 18; y += size) {
+        ctx.moveTo(0, y);
+        ctx.lineTo(14 * size, y);
+      }
+
+      ctx.strokeStyle = "#ddd";
+      ctx.stroke();
+
+    // ==================== draw grid ==================== 
+
+
+      const players = data.game.players;
+
+      Object.keys(players).forEach(playerId => {
+        players[playerId].currentPiece.tiles.forEach(tile => {
+          ctx.beginPath();
+          ctx.rect(tile.pos[0][0] * 30, tile.pos[1][0] * 30, 30, 30);
+          ctx.strokeStyle = "red";
+          ctx.stroke();
+        })
+      })
+    })
+
+    // ==================== process packs ==================== 
+
+    // ==================== process inputs ==================== 
+    // todo - move to key script file?
+    document.onkeydown = event => {
+      if (event.keyCode === 65) socket.emit('keyPress', { inputId: '1left', state: true }); // a          
+      if (event.keyCode === 83) socket.emit('keyPress', { inputId: '1down', state: true }); // s
+      if (event.keyCode === 68) socket.emit('keyPress', { inputId: '1right', state: true }); // d      
+      if (event.keyCode === 87) socket.emit('keyPress', { inputId: '1up', state: true }); // w
+      if (event.keyCode === 37) socket.emit('keyPress', { inputId: '2left', state: true }); // left          
+      if (event.keyCode === 40) socket.emit('keyPress', { inputId: '2down', state: true }); // down
+      if (event.keyCode === 38) socket.emit('keyPress', { inputId: '2right', state: true }); // right         
+      if (event.keyCode === 27) socket.emit('keyPress', { inputId: '2up', state: true }); // up
+
+    }
+
+    document.onkeyup = event => {
+      if (event.keyCode === 65) socket.emit('keyPress', { inputId: '1left', state: false }); // a          
+      if (event.keyCode === 83) socket.emit('keyPress', { inputId: '1down', state: false }); // s
+      if (event.keyCode === 68) socket.emit('keyPress', { inputId: '1right', state: false }); // d          
+      if (event.keyCode === 87) socket.emit('keyPress', { inputId: '1up', state: false }); // w
+      if (event.keyCode === 37) socket.emit('keyPress', { inputId: '2left', state: false }); // left          
+      if (event.keyCode === 40) socket.emit('keyPress', { inputId: '2down', state: false }); // down
+      if (event.keyCode === 38) socket.emit('keyPress', { inputId: '2right', state: false }); // right        
+      if (event.keyCode === 17) socket.emit('keyPress', { inputId: '2up', state: false }); // up
+    }
+    // ==================== process inputs ==================== 
+  </script>
+</body>
+</html>

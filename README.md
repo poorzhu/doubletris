@@ -7,11 +7,11 @@
 ## Functionality and MVP Features
 
 * Game class
-* Board class
+* Grid class
 * Piece: Spawn random, movable, rotatable, non-collidable pieces for each player
 * Websockets: Pieces are controllable by 2 players
-* Piece: Piece automatically/manually/hard moves down
-* Line: Single + multiple lines clear
+* Piece: Piece automatically/manually/hard moves down + display piece outline at bottom + store piece
+* Line (?): Single + multiple lines clear
 * Score: Clearing lines add to score (bonus for multiple lines)
 
 ## Architecture and Technologies
@@ -24,12 +24,13 @@
 ## Timeline
 
 Day 0: Wed 7/17
-- [ ] Setup git
+- [x] Setup git
 - [ ] Setup Websockets
 
 Day 1: Thurs 7/18
 - [ ] Game class
-- [ ] Board class
+- [ ] Grid class
+- [ ] Line class (?)
 - [ ] Get piece assets
 - [ ] Begin piece class
 

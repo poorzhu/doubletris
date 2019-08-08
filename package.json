@@ -1,0 +1,24 @@
+{
+  "name": "doubletris",
+  "version": "1.0.0",
+  "description": "-https://www.youtube.com/watch?v=TXn8T7avYEg",
+  "main": "doubletris.js",
+  "scripts": {
+    "server": "nodemon app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/poorzhu/doubletris.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/poorzhu/doubletris/issues"
+  },
+  "homepage": "https://github.com/poorzhu/doubletris#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "socket.io": "^2.2.0"
+  }
+}
